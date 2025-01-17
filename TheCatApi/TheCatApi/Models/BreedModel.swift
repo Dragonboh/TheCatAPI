@@ -8,18 +8,17 @@
 import Foundation
 
 struct BreedModel: Codable, Identifiable, Hashable {
-    let id = UUID()
-    let serverID: String
+    let id: String
     let name: String
     let temperament: String
     let description: String
     let origin: String
     
-    private enum CodingKeys: String, CodingKey {
-        case serverID = "id"
-        case name
-        case temperament
-        case description
-        case origin
-    }
+//    private enum CodingKeys: String, CodingKey {
+//        case serverID = "id"
+//        case name
+//        case temperament
+//        case description
+//        case origin
+//    }
 }

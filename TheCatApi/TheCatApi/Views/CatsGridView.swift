@@ -8,15 +8,16 @@
 
 
 import SwiftUI
+import Kingfisher
 
 struct CatsGridView: View {
     @StateObject var viewModel = CatsGridVM(networkService: NetworkService())
     @State private var cats: [CatModel] = []
     
     let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: nil, alignment: nil),
-        GridItem(.flexible(), spacing: nil, alignment: nil),
-        GridItem(.flexible(), spacing: nil, alignment: nil)
+        GridItem(.adaptive(minimum: 100, maximum: 100), spacing: nil, alignment: nil)
+//        GridItem(.flexible(minimum: 120, maximum: 120), spacing: nil, alignment: nil),
+//        GridItem(.flexible(minimum: 120, maximum: 120), spacing: nil, alignment: nil)
     ]
 
     var body: some View {
@@ -24,9 +25,14 @@ struct CatsGridView: View {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(cats) { cat in
-//                        NavigationLink {
-//                            CatDetailsView(cat: cat)
-//                        } label: {
+                        NavigationLink(value: cat) {
+                            KFImage.url(URL(string: cat.url))
+                                .resizable() 
+                                .scaledToFit()
+                                .frame(height: 100)
+                                .background(Color.red)
+                            
+                            
 //                            AsyncImage(url: URL(string: cat.url)) { image in
 //                                image
 //                                    .resizable()
@@ -35,23 +41,12 @@ struct CatsGridView: View {
 //                                ProgressView()
 //                                    .foregroundStyle(Color.blue)
 //                            }
-//                            .frame(height: 120)
-//                            .background(Color.red)
-//                        }
-                        NavigationLink(value: cat) {
-                            AsyncImage(url: URL(string: cat.url)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                            } placeholder: {
-                                ProgressView()
-                                    .foregroundStyle(Color.blue)
-                            }
-                            .frame(height: 120)
-                            .background(Color.red)
+                            
                         }
                     }
-                } .task {
+                }
+                .padding()
+                .task {
                     Task {
                         if cats.isEmpty {
                             print("11")

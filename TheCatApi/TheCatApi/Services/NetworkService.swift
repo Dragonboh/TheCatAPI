@@ -21,6 +21,11 @@ final class NetworkService: NetworkServiceProtocol {
     
     private let apiKey = "live_nzBOaDeUlBEAD4fn9Hu8PC58oXSNfDBpZAKPA2Myyt3Z1BPNCrkEr8skuHVibysw"
     private let baseURL = "https://api.thecatapi.com/v1/images/search"
+    private let session: URLSession
+
+    init(session: URLSession = URLSession.shared) {
+        self.session = session
+    }
     
     func fetchCats() async throws -> [CatModel] {
         var components = URLComponents(string: baseURL)
@@ -37,10 +42,10 @@ final class NetworkService: NetworkServiceProtocol {
         var request = URLRequest(url: url)
         request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw CustomError.invalidResponse
-        }
+        let (data, _) = try await session.data(for: request)
+//        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+//            throw CustomError.invalidResponse
+//        }
         
         let cats = try  JSONDecoder().decode([CatModel].self, from: data)
         return cats
