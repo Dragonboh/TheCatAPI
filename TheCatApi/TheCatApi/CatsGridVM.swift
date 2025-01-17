@@ -8,12 +8,13 @@
 import SwiftUI
 
 
-final class CatsGridVM {
+final class CatsGridVM: ObservableObject {
     
     let networkService: NetworkServiceProtocol
     
     init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
+        print("init CatsGridVM")
     }
   
     func getCats() async throws -> [CatModel] {

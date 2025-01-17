@@ -12,6 +12,7 @@ struct TheCatApiApp: App {
     var body: some Scene {
         WindowGroup {
             CatsGridView()
+//            CatDetailsView(cat: CatModel.mockCat)
         }
     }
 }
