@@ -22,14 +22,14 @@ struct CatDetailsView: View {
                     image
                         .resizable()
                         .scaledToFit()
-                    //                        .aspectRatio(contentMode: .fill)
-                    //                        .frame(height:400)
                 } placeholder: {
                     ProgressView()
                         .foregroundStyle(Color.blue)
                 }
                 .frame(height:400)
-                //                .background(Color.red)
+                
+                Divider()
+                    .background(Color.black)
                 
                 ForEach(cat.breeds) { breed in
                     VStack(alignment: .leading, spacing: 10) {
@@ -41,7 +41,6 @@ struct CatDetailsView: View {
                     .padding(.horizontal)
                     
                 }
-                
                 Spacer()
             }
         }
